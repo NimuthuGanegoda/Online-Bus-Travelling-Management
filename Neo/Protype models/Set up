@@ -1,0 +1,52 @@
+INTRODUCTION 
+
+This folder consists of three of the machine learning model protypes which are essential for this project to function. These machine learning models are descibed as below 
+  1. Bus driver / Bus ratings
+     This is done by analysing the past comments made by the bus passengers. It uses a snetiment analysis models (classification) in order to get a classification group  
+     based on the key words used in the comments (Good, bad , aannoying etc...). I have also included the JS code to verify if the model output can be intergrated with 
+     decided on stack technology (node.js / python ). 
+                                  - The DB requirements is obtaiing comments stored in the database 
+                                  - The node.js requirement is intergrating to the function responsible for emergency alert sorting in the backend
+                                  
+
+  2. Arrival time estimation 
+     This model is designed to calculate the time for the bus to arrive from one location the designated bus station. It considered a range of features 
+     such as
+            - Current location of the bus
+            - Location of the bus station 
+            - Bus route distnace
+            - Weather effect on the speed 
+            - If the bus passenger limit has gone over the specific amount (to which the bus would not stop at a bus station until at least one passenger off board)
+     To acheive this model, I have used machine learning algorithm knoen as XGBoost which highly defines gradient boosting in order to get a much higher accuracy. The XGBoost 
+     is used with a regression style in mind.
+                                  - The node.js requirement is the intergration of the model with the line of code needed to obtain the arrival time to display it in the map
+                                  - The DB requirment is obtaining information in regards to the above mentioned feature at real time.
+                                  - Previous calculated arrival time will also be needed.
+
+3. Imergency list prioritization 
+    This models is deisigned to sort out all available emergency alerts received by the bus drivers, so that the admin pannel (web application) has a clearer view as to who should they
+    give more priority to. I have used the calssification style XGBoost algorithm for this model creation. 
+                                  - The node.js requirement is the intergration with function which provides the web application the needed sorting of all emergency alerts 
+                                    in real time 
+                                  - The DB requirement is the obtaining of all emergency alerts sent to the admin pannel, which are stored. 
+
+Importangt info !!!
+I have also included the node.js part as well due to limited time constraints. 
+Please be sure to keep that in mind before using the models as there are other files in place.
+
+
+USER MANUAL 
+1. Bus driver / Bus ratings
+   Install dpendancies for jolib, numpy, sys and sqlite3 
+   Run the set_db to create DB file [ node setup_db.js]
+   Run [ node index.js ] 
+
+2. Arrival time estimation
+   Install dependacies such as sqlite3
+   run [node eta_service.js]
+
+3. Imergency list prioritization
+     Installing dependancies [-m pip install xgboost joblib scikit-learn pandas]
+     Running JS file [node triage_service.js]
+     
+    
