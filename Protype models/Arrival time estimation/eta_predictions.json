@@ -1,0 +1,102 @@
+[
+  {
+    "trip_id": "TRIP-001",
+    "eta": 10.8,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-002",
+    "eta": 1.2,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-003",
+    "eta": 18,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-004",
+    "eta": 3.3,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-005",
+    "eta": 12.6,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-006",
+    "eta": -0.6,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-007",
+    "eta": 20.8,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-008",
+    "eta": 5.5,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-009",
+    "eta": 8.7,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-010",
+    "eta": 0.4,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-011",
+    "eta": 20.4,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-012",
+    "eta": 5.2,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-013",
+    "eta": 12.6,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-014",
+    "eta": 0.1,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-015",
+    "eta": 14.9,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-016",
+    "eta": 6.7,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-017",
+    "eta": 2.2,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-018",
+    "eta": 17.9,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-019",
+    "eta": 1.5,
+    "status": "success"
+  },
+  {
+    "trip_id": "TRIP-020",
+    "eta": 11.2,
+    "status": "success"
+  }
+]

@@ -1,0 +1,21 @@
+trip_id,distance_to_stop_km,traffic_density,weather_score,passenger_count,is_bus_full,driver_rating,route_id_SL-001,route_id_SL-002,route_id_SL-003,route_id_SL-004,route_id_SL-005,route_id_SL-006,route_id_SL-007,scenario_description
+TRIP-001,3.2,0.65,0.80,22,1,4.5,1,0,0,0,0,0,0,Light traffic moderate weather full bus
+TRIP-002,1.5,0.25,0.95,8,0,4.8,0,1,0,0,0,0,0,Clear conditions light traffic empty bus
+TRIP-003,5.8,0.85,0.50,45,1,3.9,0,0,1,0,0,0,0,Heavy traffic rainy weather full bus
+TRIP-004,2.1,0.35,0.75,15,0,4.6,0,0,0,1,0,0,0,Moderate conditions semi-full bus
+TRIP-005,4.2,0.70,0.65,38,1,4.2,0,0,0,0,1,0,0,Heavy traffic overcast full bus
+TRIP-006,0.8,0.15,0.90,5,0,4.9,0,0,0,0,0,1,0,Perfect conditions almost empty bus
+TRIP-007,6.5,0.95,0.40,50,1,3.5,0,0,0,0,0,0,1,Gridlock severe weather maximum load
+TRIP-008,2.8,0.45,0.70,18,0,4.4,1,0,0,0,0,0,0,Moderate traffic slightly empty
+TRIP-009,3.9,0.60,0.80,28,1,4.3,0,1,0,0,0,0,0,Light-moderate traffic moderate load
+TRIP-010,1.2,0.20,0.85,12,0,4.7,0,0,1,0,0,0,0,Clear road light passenger count
+TRIP-011,7.2,0.90,0.45,48,1,3.8,0,0,0,1,0,0,0,Very heavy traffic poor weather full
+TRIP-012,2.5,0.40,0.75,20,0,4.5,0,0,0,0,1,0,0,Moderate conditions half-full bus
+TRIP-013,4.5,0.75,0.60,35,1,4.1,0,0,0,0,0,1,0,Heavy traffic cloudy high occupancy
+TRIP-014,1.0,0.10,0.95,6,0,5.0,0,0,0,0,0,0,1,Ideal conditions near empty
+TRIP-015,5.5,0.80,0.55,42,1,4.0,1,0,0,0,0,0,0,Heavy traffic rain high load
+TRIP-016,3.0,0.50,0.80,25,1,4.4,0,1,0,0,0,0,0,Light-moderate traffic full bus
+TRIP-017,2.3,0.30,0.85,10,0,4.8,0,0,1,0,0,0,0,Light conditions empty bus
+TRIP-018,6.0,0.85,0.50,46,1,3.9,0,0,0,1,0,0,0,Heavy traffic rain very full
+TRIP-019,1.8,0.25,0.90,14,0,4.6,0,0,0,0,1,0,0,Clear conditions sparse passengers
+TRIP-020,4.0,0.65,0.70,32,1,4.2,0,0,0,0,0,1,0,Moderate-heavy traffic full bus

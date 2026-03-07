@@ -1,0 +1,57 @@
+[
+  {
+    "instance": "Instance 1: Ideal Conditions",
+    "driver": "Driver_B",
+    "driverRating": 6,
+    "distance": 2,
+    "traffic": 0.15,
+    "weather": 0.95,
+    "passengers": 5,
+    "isBusFull": 0,
+    "eta": 1.8
+  },
+  {
+    "instance": "Instance 2: Moderate Traffic",
+    "driver": "Driver_B",
+    "driverRating": 6,
+    "distance": 4.5,
+    "traffic": 0.5,
+    "weather": 0.7,
+    "passengers": 25,
+    "isBusFull": 1,
+    "eta": 8.6
+  },
+  {
+    "instance": "Instance 3: Heavy Traffic",
+    "driver": "Driver_A",
+    "driverRating": 5.9,
+    "distance": 6.5,
+    "traffic": 0.85,
+    "weather": 0.45,
+    "passengers": 48,
+    "isBusFull": 1,
+    "eta": 19.8
+  },
+  {
+    "instance": "Instance 4: Peak Hour Gridlock",
+    "driver": "Driver_A",
+    "driverRating": 5.9,
+    "distance": 8,
+    "traffic": 0.95,
+    "weather": 0.35,
+    "passengers": 50,
+    "isBusFull": 1,
+    "eta": 23.8
+  },
+  {
+    "instance": "Instance 5: Mixed Conditions",
+    "driver": "Driver_B",
+    "driverRating": 6,
+    "distance": 3.8,
+    "traffic": 0.6,
+    "weather": 0.65,
+    "passengers": 32,
+    "isBusFull": 1,
+    "eta": 9.8
+  }
+]
