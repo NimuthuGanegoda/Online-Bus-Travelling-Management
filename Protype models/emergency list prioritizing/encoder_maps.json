@@ -1,0 +1,37 @@
+{
+  "emergency_type": {
+    "active_fire_no_trapped": 0,
+    "active_fire_with_trapped": 1,
+    "active_shooter": 2,
+    "building_collapse": 3,
+    "cardiac_arrest": 4,
+    "chemical_spill": 5,
+    "domestic_violence": 6,
+    "drowning": 7,
+    "fall_with_injury": 8,
+    "gas_leak": 9,
+    "mental_health_crisis": 10,
+    "minor_car_accident": 11,
+    "minor_injury": 12,
+    "missing_person": 13,
+    "noise_complaint": 14,
+    "serious_car_accident": 15,
+    "severe_trauma": 16,
+    "stroke": 17,
+    "theft_in_progress": 18,
+    "vandalism": 19
+  },
+  "victim_age_group": {
+    "adult": 0,
+    "child": 1,
+    "elderly": 2,
+    "teen": 3
+  },
+  "location_type": {
+    "commercial": 0,
+    "industrial": 1,
+    "outdoor": 2,
+    "residential": 3,
+    "vehicle": 4
+  }
+}
