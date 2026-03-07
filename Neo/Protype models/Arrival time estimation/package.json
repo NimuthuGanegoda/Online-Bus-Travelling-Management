@@ -1,0 +1,16 @@
+{
+  "name": "bus-eta-service",
+  "version": "1.0.0",
+  "description": "Bus Arrival Time Estimation with XGBoost ML Model and Driver Rating Integration",
+  "main": "eta_service.js",
+  "scripts": {
+    "start": "node eta_service.js",
+    "demo": "node eta_service.js --demo",
+    "batch": "node eta_service.js --batch",
+    "help": "node eta_service.js --help"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.98.0",
+    "sqlite3": "^5.1.7"
+  }
+}
