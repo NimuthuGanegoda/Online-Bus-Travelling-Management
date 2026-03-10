@@ -53,7 +53,7 @@ const EmergencyHandling = () => {
         <tbody>
           {sosRequests.map((request) => (
             <tr key={request.id}>
-              <td>{request.buses.bus_no}</td>
+              <td>{request.buses?.bus_no || 'Unknown'}</td>
               <td>{request.message}</td>
               <td>{request.created_at}</td>
             </tr>

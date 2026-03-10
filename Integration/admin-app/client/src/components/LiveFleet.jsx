@@ -43,9 +43,9 @@ const LiveFleet = () => {
         <tbody>
           {fleet.map((bus) => (
             <tr key={bus.id}>
-              <td>{bus.buses.bus_no}</td>
-              <td>{bus.buses.drivers.name}</td>
-              <td>{bus.buses.routes.name}</td>
+              <td>{bus.buses?.bus_no || 'Unknown'}</td>
+              <td>{bus.buses?.drivers?.name || 'Unknown'}</td>
+              <td>{bus.buses?.routes?.name || 'Unknown'}</td>
               <td>{bus.latitude}</td>
               <td>{bus.longitude}</td>
             </tr>

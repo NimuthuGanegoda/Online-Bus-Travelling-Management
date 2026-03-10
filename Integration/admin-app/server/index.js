@@ -8,6 +8,16 @@ const port = 3002;
 app.use(cors());
 app.use(bodyParser.json());
 
+const busesRoutes = require('./routes/buses');
+const driversRoutes = require('./routes/drivers');
+const emergencyRoutes = require('./routes/emergency');
+const routesRoutes = require('./routes/routes');
+
+app.use('/buses', busesRoutes);
+app.use('/drivers', driversRoutes);
+app.use('/emergency', emergencyRoutes);
+app.use('/routes', routesRoutes);
+
 app.post('/login', (req, res) => {
   console.log('Received login request with body:', req.body);
   const { username, password } = req.body;

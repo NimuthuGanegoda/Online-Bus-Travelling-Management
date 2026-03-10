@@ -37,7 +37,7 @@ const PassengerComplaints = () => {
         <tbody>
           {complaints.map((complaint) => (
             <tr key={complaint.id}>
-              <td>{complaint.passengers.name}</td>
+              <td>{complaint.passengers?.name || 'Unknown'}</td>
               <td>{complaint.comment}</td>
               <td>{complaint.rating}</td>
             </tr>

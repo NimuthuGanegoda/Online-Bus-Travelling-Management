@@ -32,8 +32,8 @@ const RouteManagement = () => {
         <div key={route.id}>
           <h2>{route.name}</h2>
           <ul>
-            {route.route_stop_links.map((link) => (
-              <li key={link.stops.id}>{link.stops.name}</li>
+            {route.route_stop_links?.map((link) => (
+              <li key={link.stops?.id}>{link.stops?.name || 'Unknown Stop'}</li>
             ))}
           </ul>
         </div>
