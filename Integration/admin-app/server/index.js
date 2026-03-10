@@ -9,11 +9,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/login', (req, res) => {
+  console.log('Received login request with body:', req.body);
   const { username, password } = req.body;
 
-  // In a real application, you would validate the credentials against a database.
-  // For this example, we'll use hardcoded credentials.
-  if (username === 'admin' && password === 'password') {
+  if (username === 'admin' && password === 'admin') {
     res.status(200).json({ message: 'Login successful' });
   } else {
     res.status(401).json({ message: 'Invalid credentials' });
