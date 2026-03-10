@@ -1,72 +1,84 @@
-const db = require('../database');
 
-const getAllDrivers = (req, res) => {
-  db.all('SELECT * FROM drivers', [], (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json({ data: rows });
-  });
+const supabase = require('../database');
+
+const getAllDrivers = async (req, res) => {
+  const { data, error } = await supabase
+    .from('drivers')
+    .select('*');
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
-const getDriverById = (req, res) => {
-    const { id } = req.params;
-    db.get('SELECT * FROM drivers WHERE id = ?', [id], (err, row) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-            return;
-        }
-        res.json({ data: row });
-    });
+const getDriverById = async (req, res) => {
+  const { id } = req.params;
+  const { data, error } = await supabase
+    .from('drivers')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
-const addDriver = (req, res) => {
+const addDriver = async (req, res) => {
   const { name, contact, busId } = req.body;
-  db.run(
-    'INSERT INTO drivers (name, contact, busId) VALUES (?, ?, ?)',
-    [name, contact, busId],
-    function (err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.status(201).json({ id: this.lastID });
-    }
-  );
+  const { data, error } = await supabase
+    .from('drivers')
+    .insert([{ name, contact, busId }])
+    .select();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.status(201).json({ data });
 };
 
-const updateDriver = (req, res) => {
+const updateDriver = async (req, res) => {
   const { id } = req.params;
   const { name, contact, busId } = req.body;
-  db.run(
-    'UPDATE drivers SET name = ?, contact = ?, busId = ? WHERE id = ?',
-    [name, contact, busId, id],
-    function (err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({ changes: this.changes });
-    }
-  );
+
+  const { data, error } = await supabase
+    .from('drivers')
+    .update({ name, contact, busId })
+    .eq('id', id)
+    .select();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
-const deleteDriver = (req, res) => {
+const deleteDriver = async (req, res) => {
   const { id } = req.params;
-  db.run('DELETE FROM drivers WHERE id = ?', id, function (err) {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json({ changes: this.changes });
-  });
+
+  const { data, error } = await supabase
+    .from('drivers')
+    .delete()
+    .eq('id', id)
+    .select();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
 module.exports = {
-    getAllDrivers,
-    getDriverById,
-    addDriver,
-    updateDriver,
-    deleteDriver,
+  getAllDrivers,
+  getDriverById,
+  addDriver,
+  updateDriver,
+  deleteDriver,
 };

@@ -1,72 +1,84 @@
-const db = require('../database');
 
-const getAllRoutes = (req, res) => {
-  db.all('SELECT * FROM routes', [], (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json({ data: rows });
-  });
+const supabase = require('../database');
+
+const getAllRoutes = async (req, res) => {
+  const { data, error } = await supabase
+    .from('routes')
+    .select('*');
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
-const getRouteById = (req, res) => {
-    const { id } = req.params;
-    db.get('SELECT * FROM routes WHERE id = ?', [id], (err, row) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-            return;
-        }
-        res.json({ data: row });
-    });
+const getRouteById = async (req, res) => {
+  const { id } = req.params;
+  const { data, error } = await supabase
+    .from('routes')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
-const addRoute = (req, res) => {
+const addRoute = async (req, res) => {
   const { name, description } = req.body;
-  db.run(
-    'INSERT INTO routes (name, description) VALUES (?, ?)',
-    [name, description],
-    function (err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.status(201).json({ id: this.lastID });
-    }
-  );
+  const { data, error } = await supabase
+    .from('routes')
+    .insert([{ name, description }])
+    .select();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.status(201).json({ data });
 };
 
-const updateRoute = (req, res) => {
+const updateRoute = async (req, res) => {
   const { id } = req.params;
   const { name, description } = req.body;
-  db.run(
-    'UPDATE routes SET name = ?, description = ? WHERE id = ?',
-    [name, description, id],
-    function (err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({ changes: this.changes });
-    }
-  );
+
+  const { data, error } = await supabase
+    .from('routes')
+    .update({ name, description })
+    .eq('id', id)
+    .select();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
-const deleteRoute = (req, res) => {
+const deleteRoute = async (req, res) => {
   const { id } = req.params;
-  db.run('DELETE FROM routes WHERE id = ?', id, function (err) {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json({ changes: this.changes });
-  });
+
+  const { data, error } = await supabase
+    .from('routes')
+    .delete()
+    .eq('id', id)
+    .select();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
 module.exports = {
-    getAllRoutes,
-    getRouteById,
-    addRoute,
-    updateRoute,
-    deleteRoute,
+  getAllRoutes,
+  getRouteById,
+  addRoute,
+  updateRoute,
+  deleteRoute,
 };

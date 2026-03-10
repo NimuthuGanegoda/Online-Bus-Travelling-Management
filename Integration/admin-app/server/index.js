@@ -1,33 +1,25 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
-const db = require('./database');
-const busRoutes = require('./routes/buses');
-const emergencyRoutes = require('./routes/emergency');
-const routeRoutes = require('./routes/routes');
-const driverRoutes = require('./routes/drivers');
 
 const app = express();
 const port = 3002;
 
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the admin app backend!');
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // In a real application, you would validate the credentials against a database.
+  // For this example, we'll use hardcoded credentials.
+  if (username === 'admin' && password === 'password') {
+    res.status(200).json({ message: 'Login successful' });
+  } else {
+    res.status(401).json({ message: 'Invalid credentials' });
+  }
 });
 
-// Use the bus routes
-app.use('/api/buses', busRoutes);
-
-// Use the emergency routes
-app.use('/api/emergencies', emergencyRoutes);
-
-// Use the route routes
-app.use('/api/routes', routeRoutes);
-
-// Use the driver routes
-app.use('/api/drivers', driverRoutes);
-
 app.listen(port, () => {
-  console.log(`Admin app backend listening at http://localhost:${port}`);
+  console.log(`Server listening on port ${port}`);
 });

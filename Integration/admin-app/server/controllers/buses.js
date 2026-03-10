@@ -1,66 +1,78 @@
-const db = require('../database');
 
-const getAllBuses = (req, res) => {
-  db.all('SELECT * FROM buses', [], (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json({ data: rows });
-  });
+const supabase = require('../database');
+
+const getAllBuses = async (req, res) => {
+  const { data, error } = await supabase
+    .from('buses')
+    .select('*');
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
-const getBusById = (req, res) => {
+const getBusById = async (req, res) => {
   const { id } = req.params;
-  db.get('SELECT * FROM buses WHERE id = ?', [id], (err, row) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json({ data: row });
-  });
+  const { data, error } = await supabase
+    .from('buses')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
-const addBus = (req, res) => {
+const addBus = async (req, res) => {
   const { busNo, driverName, route } = req.body;
-  db.run(
-    'INSERT INTO buses (busNo, driverName, route) VALUES (?, ?, ?)',
-    [busNo, driverName, route],
-    function (err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.status(201).json({ id: this.lastID });
-    }
-  );
+  const { data, error } = await supabase
+    .from('buses')
+    .insert([{ busNo, driverName, route }])
+    .select();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.status(201).json({ data });
 };
 
-const updateBus = (req, res) => {
+const updateBus = async (req, res) => {
   const { id } = req.params;
   const { busNo, driverName, route } = req.body;
-  db.run(
-    'UPDATE buses SET busNo = ?, driverName = ?, route = ? WHERE id = ?',
-    [busNo, driverName, route, id],
-    function (err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({ changes: this.changes });
-    }
-  );
+
+  const { data, error } = await supabase
+    .from('buses')
+    .update({ busNo, driverName, route })
+    .eq('id', id)
+    .select();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
-const deleteBus = (req, res) => {
+const deleteBus = async (req, res) => {
   const { id } = req.params;
-  db.run('DELETE FROM buses WHERE id = ?', id, function (err) {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json({ changes: this.changes });
-  });
+
+  const { data, error } = await supabase
+    .from('buses')
+    .delete()
+    .eq('id', id)
+    .select();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
 module.exports = {

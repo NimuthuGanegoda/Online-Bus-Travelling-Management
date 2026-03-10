@@ -1,31 +1,34 @@
-const db = require('../database');
 
-const getAllEmergencies = (req, res) => {
-  db.all('SELECT * FROM emergencies ORDER BY timestamp DESC', [], (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json({ data: rows });
-  });
+const supabase = require('../database');
+
+const getAllEmergencies = async (req, res) => {
+  const { data, error } = await supabase
+    .from('emergencies')
+    .select('*')
+    .order('timestamp', { ascending: false });
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({ data });
 };
 
-const createEmergency = (req, res) => {
-    const { busId, message } = req.body;
-    db.run(
-        'INSERT INTO emergencies (busId, message) VALUES (?, ?)',
-        [busId, message],
-        function (err) {
-            if (err) {
-                res.status(500).json({ error: err.message });
-                return;
-            }
-            res.status(201).json({ id: this.lastID });
-        }
-    );
+const createEmergency = async (req, res) => {
+  const { busId, message } = req.body;
+  const { data, error } = await supabase
+    .from('emergencies')
+    .insert([{ busId, message }])
+    .select();
+
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.status(201).json({ data });
 };
 
 module.exports = {
-    getAllEmergencies,
-    createEmergency,
+  getAllEmergencies,
+  createEmergency,
 };

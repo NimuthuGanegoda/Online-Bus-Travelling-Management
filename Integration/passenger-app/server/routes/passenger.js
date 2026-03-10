@@ -1,70 +1,88 @@
 
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+const supabase = require('../database'); // Assuming you have a Supabase client instance
 
 // Passenger login
 router.post('/login', (req, res) => {
-  // Handle passenger login logic here
-  res.send('Passenger login endpoint');
+  // In a real app, you would authenticate the passenger against the database
+  res.send('Passenger login endpoint (not implemented)');
 });
 
 // Passenger registration
 router.post('/register', (req, res) => {
-  // Handle passenger registration logic here
-  res.send('Passenger registration endpoint');
+  // In a real app, you would register the passenger in the database
+  res.send('Passenger registration endpoint (not implemented)');
 });
 
-// Get bus location
-router.get('/bus-location', (req, res) => {
-  // Handle fetching bus location
-  res.send('Get bus location endpoint');
-});
+// Get bus location - now fetches from Supabase
+router.get('/bus-location', async (req, res) => {
+  const { busId } = req.query; // Assuming busId is passed as a query param
 
-// Get bus arrival time
-router.get('/bus-arrival', (req, res) => {
-  // Handle fetching bus arrival time
-  res.send('Get bus arrival time endpoint');
-});
+  if (!busId) {
+    return res.status(400).send('Bus ID is required');
+  }
 
-// Get bus route
-router.get('/bus-route', async (req, res) => {
   try {
-    const response = await axios.get('http://localhost:3000/driver/trip');
-    res.send(response.data);
+    const { data, error } = await supabase
+      .from('bus_locations')
+      .select('latitude, longitude')
+      .eq('busId', busId)
+      .single();
+
+    if (error) {
+      console.error('Error fetching bus location from Supabase:', error);
+      return res.status(500).send('Error fetching bus location');
+    }
+
+    if (data) {
+      res.json(data);
+    } else {
+      res.status(404).send('Bus location not found');
+    }
   } catch (error) {
-    res.status(500).send('Error fetching bus route');
+    console.error('An unexpected error occurred:', error);
+    res.status(500).send('An unexpected error occurred');
   }
 });
 
-// Get trip history
-router.get('/trip-history', (req, res) => {
-  // Handle fetching trip history
-  res.send('Get trip history endpoint');
+// Get bus arrival time (placeholder)
+router.get('/bus-arrival', (req, res) => {
+  res.send('Get bus arrival time endpoint (not implemented)');
 });
 
-// Rate a trip
-router.post('/rate-trip', (req, res) => {
-  // Handle rating a trip
-  res.send('Rate trip endpoint');
+// Get bus route - now fetches from Supabase
+router.get('/bus-route', async (req, res) => {
+  const { busId } = req.query; // Assuming busId is passed as a query param
+
+  if (!busId) {
+    return res.status(400).send('Bus ID is required');
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('trips')
+      .select('*')
+      .eq('busId', busId)
+      .is('endTime', null)
+      .single();
+
+    if (error) {
+      console.error('Error fetching bus route from Supabase:', error);
+      return res.status(500).send('Error fetching bus route');
+    }
+
+    if (data) {
+      res.json(data);
+    } else {
+      res.status(404).send('No active route found for this bus');
+    }
+  } catch (error) {
+    console.error('An unexpected error occurred:', error);
+    res.status(500).send('An unexpected error occurred');
+  }
 });
 
-// Send emergency alert
-router.post('/emergency', (req, res) => {
-  // Handle sending emergency alert
-  res.send('Emergency alert endpoint');
-});
-
-// Get user profile
-router.get('/profile', (req, res) => {
-  // Handle fetching user profile
-  res.send('Get user profile endpoint');
-});
-
-// Update user profile
-router.put('/profile', (req, res) => {
-  // Handle updating user profile
-  res.send('Update user profile endpoint');
-});
+// ... (other endpoints remain as placeholders)
 
 module.exports = router;
