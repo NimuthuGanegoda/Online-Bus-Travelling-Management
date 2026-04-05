@@ -8,12 +8,7 @@ const RouteManagement = () => {
     const fetchRoutes = async () => {
       const { data, error } = await supabase
         .from('routes')
-        .select(`
-          *,
-          route_stop_links (
-            stops (*)
-          )
-        `);
+        .select('*');
 
       if (error) {
         console.error('Error fetching routes:', error);
@@ -26,18 +21,32 @@ const RouteManagement = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Route Management</h1>
-      {routes.map((route) => (
-        <div key={route.id}>
-          <h2>{route.name}</h2>
-          <ul>
-            {route.route_stop_links?.map((link) => (
-              <li key={link.stops?.id}>{link.stops?.name || 'Unknown Stop'}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <div style={{padding: '20px'}}>
+      <h1>🛤️ Route Network</h1>
+      <table style={{width: '100%', borderCollapse: 'collapse', marginTop: '20px'}}>
+        <thead>
+          <tr style={{borderBottom: '2px solid #444', textAlign: 'left'}}>
+            <th style={{padding: '10px'}}>Number</th>
+            <th style={{padding: '10px'}}>Route Name</th>
+            <th style={{padding: '10px'}}>Distance (km)</th>
+            <th style={{padding: '10px'}}>Est. Duration (min)</th>
+            <th style={{padding: '10px'}}>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {routes.map((route) => (
+            <tr key={route.id} style={{borderBottom: '1px solid #333'}}>
+              <td style={{padding: '10px', fontWeight: 'bold'}}>{route.route_number}</td>
+              <td style={{padding: '10px'}}>{route.route_name}</td>
+              <td style={{padding: '10px'}}>{route.total_distance_km}</td>
+              <td style={{padding: '10px'}}>{route.estimated_duration_min}</td>
+              <td style={{padding: '10px'}}>
+                {route.is_active ? '✅ Operational' : '❌ Suspended'}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
