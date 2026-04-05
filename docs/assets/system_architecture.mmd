@@ -1,0 +1,40 @@
+graph TD
+    subgraph "Clients (Flutter Applications)"
+        PA[Passenger App]
+        DA[Driver App]
+        AA[Admin App]
+    end
+
+    subgraph "Infrastructure Layer (Supabase)"
+        Auth[Supabase Auth]
+        DB[(PostgreSQL Database)]
+        Realtime[Supabase Realtime]
+        Functions[Edge Functions]
+    end
+
+    subgraph "Intelligence Layer (Neo - Python/Node.js)"
+        ML_ETA[Bus Arrival ETA Model]
+        ML_RATING[Driver Performance Rating]
+        ML_TRIAGE[Emergency Incident Triage]
+    end
+
+    %% Client Interaction
+    PA -- "Auth / Profile / Tracking" --> Auth
+    PA -- "Real-time Location Updates" --> Realtime
+    PA -- "Fetch Predictions / ETA" --> Functions
+
+    DA -- "Manage Trip / Crowd Data" --> Functions
+    DA -- "Trigger Emergency Alerts" --> Realtime
+
+    AA -- "System Dashboard / Admin" --> DB
+    AA -- "Prioritize Emergencies" --> Functions
+
+    %% Data Flow
+    Functions -- "Query / Insert" --> DB
+    Functions -- "Analyze" --> ML_ETA
+    Functions -- "Analyze" --> ML_RATING
+    Functions -- "Analyze" --> ML_TRIAGE
+
+    ML_ETA --- DB
+    ML_RATING --- DB
+    ML_TRIAGE --- DB
